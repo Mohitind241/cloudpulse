@@ -1,0 +1,13 @@
+.dockerignore
+.gitignore
+**/*.md
+**/bin/
+**/obj/
+**/.git/
+**/node_modules/
+screenshots/
+docs/
+Jenkinsfile
+k8s-deployment.yaml
+*.log
+*.txt

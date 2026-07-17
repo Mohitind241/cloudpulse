@@ -1,0 +1,176 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About - CloudPulse";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudPulse — About This Project</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+        <span class="brand-name">Cloud<span class="brand-accent">Pulse</span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/Metrics">Metrics</a></li>
+        <li><a href="/About" class="active">About</a></li>
+    </ul>
+    <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>Live</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <h1><i class="fas fa-user-tie"></i> About This Project</h1>
+    <p>A production-grade DevSecOps portfolio project built by Mohit</p>
+</section>
+
+<!-- ABOUT CONTENT -->
+<section class="about-section">
+
+    <!-- Project Overview -->
+    <div class="about-card">
+        <div class="about-card-icon"><i class="fas fa-rocket"></i></div>
+        <div class="about-card-content">
+            <h3>Project Overview</h3>
+            <p>
+                <strong>CloudPulse</strong> is a real-time infrastructure monitoring web application built with 
+                <strong>.NET 8</strong>. The project demonstrates a complete <strong>DevSecOps CI/CD pipeline</strong> 
+                integrating automated security scanning at every stage — from code commit to production deployment on Kubernetes.
+            </p>
+            <p>
+                This project was designed to showcase my hands-on expertise in modern DevOps practices, cloud infrastructure, 
+                and security-first software delivery.
+            </p>
+        </div>
+    </div>
+
+    <!-- Developer Info -->
+    <div class="about-card highlight">
+        <div class="about-card-icon"><i class="fas fa-code"></i></div>
+        <div class="about-card-content">
+            <h3>👨‍💻 Built by Mohit</h3>
+            <p>DevOps Engineer passionate about automating everything and building secure, scalable infrastructure.</p>
+            <div class="skills-list">
+                <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
+                <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                <span class="skill-tag"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
+                <span class="skill-tag"><i class="fab fa-jenkins"></i> Jenkins</span>
+                <span class="skill-tag"><i class="fas fa-shield-halved"></i> DevSecOps</span>
+                <span class="skill-tag"><i class="fas fa-code-branch"></i> CI/CD</span>
+                <span class="skill-tag"><i class="fab fa-microsoft"></i> .NET</span>
+                <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+            </div>
+            <div class="about-links">
+                <a href="#" class="link-btn"><i class="fab fa-docker"></i> mohitdocker241</a>
+                <a href="#" class="link-btn"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" class="link-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pipeline Details -->
+    <div class="about-card">
+        <div class="about-card-icon"><i class="fas fa-sitemap"></i></div>
+        <div class="about-card-content">
+            <h3>Pipeline Architecture</h3>
+            <div class="arch-steps">
+                <div class="arch-step">
+                    <span class="step-num">1</span>
+                    <div>
+                        <strong>Git Checkout</strong>
+                        <p>Jenkins triggers on every push to the main branch via GitHub webhook</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">2</span>
+                    <div>
+                        <strong>SonarQube Static Analysis</strong>
+                        <p>Code is scanned for bugs, code smells, and security hotspots. Quality gate must pass before proceeding</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">3</span>
+                    <div>
+                        <strong>OWASP Dependency Check</strong>
+                        <p>All NuGet dependencies scanned against CVE database for known vulnerabilities</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">4</span>
+                    <div>
+                        <strong>Trivy File System Scan</strong>
+                        <p>Entire repository filesystem scanned for misconfigurations and secrets</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">5</span>
+                    <div>
+                        <strong>Docker Build & Image Scan</strong>
+                        <p>Multi-stage Docker build, then Trivy scans the final image for OS and library vulnerabilities</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">6</span>
+                    <div>
+                        <strong>Push to DockerHub</strong>
+                        <p>Clean image pushed to <code>mohitdocker241/cloudpulse:latest</code> on DockerHub</p>
+                    </div>
+                </div>
+                <div class="arch-step">
+                    <span class="step-num">7</span>
+                    <div>
+                        <strong>Kubernetes Deployment</strong>
+                        <p>Rolling deployment to Kubernetes cluster with 2 replicas and LoadBalancer service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Infrastructure -->
+    <div class="about-card">
+        <div class="about-card-icon"><i class="fab fa-aws"></i></div>
+        <div class="about-card-content">
+            <h3>Infrastructure</h3>
+            <table class="info-table">
+                <tr><td>Cloud Provider</td><td>AWS EC2</td></tr>
+                <tr><td>Instance Type</td><td>t2.large (2 vCPU, 8 GB RAM)</td></tr>
+                <tr><td>OS</td><td>Ubuntu 22.04 LTS</td></tr>
+                <tr><td>Storage</td><td>30 GB EBS</td></tr>
+                <tr><td>Jenkins</td><td>Port 8080</td></tr>
+                <tr><td>SonarQube</td><td>Port 9000 (Docker container)</td></tr>
+                <tr><td>App</td><td>Port 80 (Docker/Kubernetes)</td></tr>
+                <tr><td>Docker Image</td><td>mohitdocker241/cloudpulse:latest</td></tr>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+            <span>CloudPulse</span>
+        </div>
+        <p class="footer-text">Built with ❤️ by <strong>Mohit</strong> · DevSecOps Portfolio Project</p>
+        <p class="footer-copy">&copy; 2024 Mohit. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+@page
+@model MetricsModel
+@{
+    ViewData["Title"] = "CloudPulse - Live Metrics";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudPulse — Live Metrics</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+        <span class="brand-name">Cloud<span class="brand-accent">Pulse</span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/Metrics" class="active">Metrics</a></li>
+        <li><a href="/About">About</a></li>
+    </ul>
+    <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>Live</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <h1><i class="fas fa-chart-line"></i> Live System Metrics</h1>
+    <p>Real-time infrastructure performance data — refreshes every 2 seconds</p>
+</section>
+
+<section class="metrics-section">
+
+    <!-- CPU Gauge -->
+    <div class="metric-card">
+        <div class="metric-card-header">
+            <i class="fas fa-microchip"></i>
+            <span>CPU Usage</span>
+            <span class="live-badge">LIVE</span>
+        </div>
+        <div class="gauge-container">
+            <div class="gauge-bar">
+                <div class="gauge-fill cpu-fill" id="cpu-bar" style="width:0%"></div>
+            </div>
+            <span class="gauge-value" id="cpu-pct">--</span>
+        </div>
+        <div class="metric-history" id="cpu-history"></div>
+    </div>
+
+    <!-- Memory Gauge -->
+    <div class="metric-card">
+        <div class="metric-card-header">
+            <i class="fas fa-memory"></i>
+            <span>Memory Usage</span>
+            <span class="live-badge">LIVE</span>
+        </div>
+        <div class="gauge-container">
+            <div class="gauge-bar">
+                <div class="gauge-fill mem-fill" id="mem-bar" style="width:0%"></div>
+            </div>
+            <span class="gauge-value" id="mem-pct">--</span>
+        </div>
+        <div class="metric-history" id="mem-history"></div>
+    </div>
+
+    <!-- Disk Usage -->
+    <div class="metric-card">
+        <div class="metric-card-header">
+            <i class="fas fa-hard-drive"></i>
+            <span>Disk I/O</span>
+            <span class="live-badge">LIVE</span>
+        </div>
+        <div class="gauge-container">
+            <div class="gauge-bar">
+                <div class="gauge-fill disk-fill" id="disk-bar" style="width:0%"></div>
+            </div>
+            <span class="gauge-value" id="disk-pct">--</span>
+        </div>
+        <div class="metric-history" id="disk-history"></div>
+    </div>
+
+    <!-- Network -->
+    <div class="metric-card">
+        <div class="metric-card-header">
+            <i class="fas fa-network-wired"></i>
+            <span>Network Throughput</span>
+            <span class="live-badge">LIVE</span>
+        </div>
+        <div class="gauge-container">
+            <div class="gauge-bar">
+                <div class="gauge-fill net-fill" id="net-bar" style="width:0%"></div>
+            </div>
+            <span class="gauge-value" id="net-pct">--</span>
+        </div>
+        <div class="metric-history" id="net-history"></div>
+    </div>
+
+</section>
+
+<!-- PIPELINE HEALTH TABLE -->
+<section class="health-section">
+    <h2 class="section-title">Pipeline Health</h2>
+    <table class="health-table">
+        <thead>
+            <tr>
+                <th>Stage</th>
+                <th>Tool</th>
+                <th>Status</th>
+                <th>Last Run</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Source Control</td>
+                <td><i class="fab fa-git-alt"></i> Git</td>
+                <td><span class="badge success">✓ Active</span></td>
+                <td id="time-1">--</td>
+                <td>Commit pushed</td>
+            </tr>
+            <tr>
+                <td>Code Quality</td>
+                <td><i class="fas fa-code"></i> SonarQube</td>
+                <td><span class="badge success">✓ Passed</span></td>
+                <td id="time-2">--</td>
+                <td>Quality Gate: OK</td>
+            </tr>
+            <tr>
+                <td>Dependency Scan</td>
+                <td><i class="fas fa-bug"></i> OWASP</td>
+                <td><span class="badge success">✓ Clean</span></td>
+                <td id="time-3">--</td>
+                <td>0 Critical CVEs</td>
+            </tr>
+            <tr>
+                <td>Image Scan</td>
+                <td><i class="fas fa-shield-virus"></i> Trivy</td>
+                <td><span class="badge success">✓ Clean</span></td>
+                <td id="time-4">--</td>
+                <td>No HIGH/CRITICAL</td>
+            </tr>
+            <tr>
+                <td>Container Build</td>
+                <td><i class="fab fa-docker"></i> Docker</td>
+                <td><span class="badge success">✓ Pushed</span></td>
+                <td id="time-5">--</td>
+                <td>mohitdocker241/cloudpulse:latest</td>
+            </tr>
+            <tr>
+                <td>Orchestration</td>
+                <td><i class="fas fa-dharmachakra"></i> Kubernetes</td>
+                <td><span class="badge success">✓ Running</span></td>
+                <td id="time-6">--</td>
+                <td>2/2 Replicas Ready</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+            <span>CloudPulse</span>
+        </div>
+        <p class="footer-text">Built with ❤️ by <strong>Mohit</strong> · DevSecOps Portfolio Project</p>
+        <p class="footer-copy">&copy; 2024 Mohit. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

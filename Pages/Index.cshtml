@@ -1,0 +1,181 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "CloudPulse - Live Infrastructure Monitor";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudPulse — Live Infrastructure Monitor</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+        <span class="brand-name">Cloud<span class="brand-accent">Pulse</span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="/" class="active">Dashboard</a></li>
+        <li><a href="/Metrics">Metrics</a></li>
+        <li><a href="/About">About</a></li>
+    </ul>
+    <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>Live</span>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-shield-halved"></i> DevSecOps Pipeline Active</div>
+        <h1 class="hero-title">
+            Real-Time<br/>
+            <span class="gradient-text">Infrastructure Monitor</span>
+        </h1>
+        <p class="hero-subtitle">
+            Production-grade monitoring dashboard built with .NET 8, deployed via a full 
+            DevSecOps CI/CD pipeline — Jenkins · Docker · Kubernetes · SonarQube · Trivy
+        </p>
+        <div class="hero-cta">
+            <a href="/Metrics" class="btn-primary"><i class="fas fa-chart-line"></i> View Metrics</a>
+            <a href="/About" class="btn-secondary"><i class="fas fa-info-circle"></i> Learn More</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="monitor-card">
+            <div class="monitor-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="monitor-title">system.monitor</span>
+            </div>
+            <div class="monitor-body">
+                <div class="metric-line"><span class="metric-key">cpu_usage</span><span class="metric-val" id="cpu-val">—</span></div>
+                <div class="metric-line"><span class="metric-key">memory_used</span><span class="metric-val" id="mem-val">—</span></div>
+                <div class="metric-line"><span class="metric-key">disk_io</span><span class="metric-val" id="disk-val">—</span></div>
+                <div class="metric-line"><span class="metric-key">uptime</span><span class="metric-val" id="uptime-val">—</span></div>
+                <div class="metric-line"><span class="metric-key">pipeline_status</span><span class="metric-val success">✓ passing</span></div>
+                <div class="metric-line"><span class="metric-key">security_scan</span><span class="metric-val success">✓ clean</span></div>
+                <div class="blink-cursor">█</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS ROW -->
+<section class="stats-section">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-microchip"></i></div>
+        <div class="stat-info">
+            <span class="stat-value" id="cpu-stat">--</span>
+            <span class="stat-label">CPU Usage</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon memory"><i class="fas fa-memory"></i></div>
+        <div class="stat-info">
+            <span class="stat-value" id="mem-stat">--</span>
+            <span class="stat-label">Memory Used</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon pipeline"><i class="fas fa-code-branch"></i></div>
+        <div class="stat-info">
+            <span class="stat-value green">PASSING</span>
+            <span class="stat-label">Pipeline Status</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon secure"><i class="fas fa-shield-halved"></i></div>
+        <div class="stat-info">
+            <span class="stat-value green">0 CRITICAL</span>
+            <span class="stat-label">Security Vulnerabilities</span>
+        </div>
+    </div>
+</section>
+
+<!-- PIPELINE STAGES -->
+<section class="pipeline-section">
+    <h2 class="section-title">DevSecOps Pipeline Stages</h2>
+    <p class="section-subtitle">Every code push triggers this automated security-first pipeline</p>
+    <div class="pipeline-flow">
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fab fa-git-alt"></i></div>
+            <div class="stage-name">Git Checkout</div>
+            <div class="stage-status">✓ Complete</div>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fas fa-code"></i></div>
+            <div class="stage-name">SonarQube Analysis</div>
+            <div class="stage-status">✓ Quality Gate Passed</div>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fas fa-bug"></i></div>
+            <div class="stage-name">OWASP Check</div>
+            <div class="stage-status">✓ No Critical CVEs</div>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fas fa-shield-virus"></i></div>
+            <div class="stage-name">Trivy Scan</div>
+            <div class="stage-status">✓ Image Clean</div>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fab fa-docker"></i></div>
+            <div class="stage-name">Docker Build & Push</div>
+            <div class="stage-status">✓ mohitdocker241/cloudpulse</div>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-stage done">
+            <div class="stage-icon"><i class="fas fa-dharmachakra"></i></div>
+            <div class="stage-name">K8s Deploy</div>
+            <div class="stage-status">✓ 2 Replicas Running</div>
+        </div>
+    </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech-section">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="tech-grid">
+        <div class="tech-card"><i class="fab fa-microsoft"></i><span>.NET 8</span></div>
+        <div class="tech-card"><i class="fab fa-jenkins"></i><span>Jenkins</span></div>
+        <div class="tech-card"><i class="fab fa-docker"></i><span>Docker</span></div>
+        <div class="tech-card"><i class="fas fa-dharmachakra"></i><span>Kubernetes</span></div>
+        <div class="tech-card"><i class="fas fa-code"></i><span>SonarQube</span></div>
+        <div class="tech-card"><i class="fas fa-shield-halved"></i><span>Trivy</span></div>
+        <div class="tech-card"><i class="fas fa-bug"></i><span>OWASP</span></div>
+        <div class="tech-card"><i class="fab fa-aws"></i><span>AWS EC2</span></div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="brand-icon"><i class="fas fa-cloud-bolt"></i></span>
+            <span>CloudPulse</span>
+        </div>
+        <p class="footer-text">Built with ❤️ by <strong>Mohit</strong> · DevSecOps Portfolio Project</p>
+        <p class="footer-tech">
+            <i class="fab fa-docker"></i> mohitdocker241/cloudpulse &nbsp;|&nbsp;
+            <i class="fab fa-github"></i> github.com/mohit &nbsp;|&nbsp;
+            <i class="fab fa-linkedin"></i> Connect on LinkedIn
+        </p>
+        <p class="footer-copy">&copy; 2024 Mohit. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

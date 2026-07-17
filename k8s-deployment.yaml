@@ -1,0 +1,105 @@
+# ── Kubernetes Deployment for CloudPulse ──────────────────────
+# Built by Mohit | mohitdocker241
+# Image: mohitdocker241/cloudpulse:latest
+# ─────────────────────────────────────────────────────────────
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudpulse
+  namespace: default
+  labels:
+    app: cloudpulse
+    version: "1.0"
+    owner: mohit
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudpulse
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: cloudpulse
+        version: "1.0"
+    spec:
+      containers:
+        - name: cloudpulse
+          image: mohitdocker241/cloudpulse:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: ASPNETCORE_URLS
+              value: "http://+:80"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudpulse-service
+  namespace: default
+  labels:
+    app: cloudpulse
+spec:
+  selector:
+    app: cloudpulse
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+
+# Horizontal Pod Autoscaler (scales 2–5 pods based on CPU)
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cloudpulse-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cloudpulse
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
